@@ -4,6 +4,8 @@
  */
 package e2p1_avrilromero;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author rodge
@@ -46,41 +48,42 @@ class Numero {
     }
 
     public int charToNum(char c) {
-        int num = 0;
-        if ((int) c >= 0 && (char) c <= 9) {
-            num = (int) (c - 48);
-        } else if (num >= 10 && num <= 35) {
-            num = (int) (num - 87);
+        int num1 = 0;
+        if ((int) c >= 48 && (int) c <= 57) {
+            num1 = (c - 48);
+        } else if ((int) c >= 97 && (int) c <= 122) {
+            num1 = (c - 87);
         }
-        return num;
+        return num1;
     }
 
     public String decToBase(int num) {
         String base2 = "";
-        int rem = num / base;
-        int sobrante = num % base;
-
-        if (rem == 1) {
-            base2 = (numToChar(rem)) + base2;
+        int rem = num;
+        if (rem == 0) {
+            base2 = "0";
         } else {
-            while (rem > base) {
-                base2 = (numToChar(sobrante)) + base2;
-                sobrante = rem % base;
+            while (rem > 0) {
+                int sobrante = rem % base;
+                base2 = numToChar(sobrante) + base2;
                 rem = rem / base;
             }
-            base2 = (numToChar(sobrante)) + base2;
-            base2 = (numToChar(rem)) + base2;
         }
         return base2;
     }
 
-    public int baseToDec(String cadena) {
-        int decimal = 0;
-        for (int i = 0; i < cadena.length(); i++) {
-            int temporal = cadena.charAt(cadena.length() - 1);
-            double exponente = Math.pow((double) temporal, (double) i);
-            decimal += exponente;
+    public int baseToDec(String num,int base) {
+         int decimal = 0;
+        for (int i = 0; i < num.length(); i++) {
+            decimal += charToNum(num.charAt(i))*Math.pow((double) base, (double) (num.length() - i-1 ));
         }
         return decimal;
     }
+
+    @Override
+    public String toString() {
+        return  num ;
+    }
+    
+
 }
